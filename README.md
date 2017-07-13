@@ -4,5 +4,5 @@
 
 ## step by step:
 ```conf
-rails g model message
+rails g model message content:text
 ```
