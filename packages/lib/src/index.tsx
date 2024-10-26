@@ -1,32 +1,57 @@
-// import noop from '@jswork/noop';
 import cx from 'classnames';
-import React, { ReactNode, Component, HTMLAttributes } from "react";
+import React, { ReactNode, Component, HTMLAttributes } from 'react';
 
-const CLASS_NAME = "react-tree";
-// const uuid = () => Math.random().toString(36).substring(2, 9);
+const CLASS_NAME = 'react-tree';
+
+export type TreeNodeProps = {
+  label: string;
+  value: string;
+  children: TreeNodeProps[];
+}
+
 export type ReactTreeProps = {
-  /**
-   * The extended className for component.
-   * @default ''
-   */
-  className?: string;
+  items: TreeNodeProps[];
   /**
    * The children element.
    */
   children?: ReactNode;
-} & HTMLAttributes<HTMLDivElement>;
+} & HTMLAttributes<HTMLUListElement>;
+
+const TreeNode = ({ node }) => {
+  const hasChildren = node.children && node.children.length > 0;
+
+  return (
+    <li key={node.value}>
+      {hasChildren ? (
+        <details open>
+          <summary data-role="label">{node.label}</summary>
+          <ul>
+            {node.children.map((node) => (
+              <TreeNode key={node.value} node={node} />
+            ))}
+          </ul>
+        </details>
+      ) : (
+        <span data-role="label">{node.label}</span>
+      )}
+    </li>
+  );
+};
 
 export default class ReactTree extends Component<ReactTreeProps> {
   static displayName = CLASS_NAME;
-  static version = "__VERSION__";
+  static version = '__VERSION__';
   static defaultProps = {};
 
+
   render() {
-    const { className, children,...rest } = this.props;
+    const { className, children, items, ...rest } = this.props;
     return (
-      <div data-component={CLASS_NAME} className={cx(CLASS_NAME, className)} {...rest}>
-        {children}
-      </div>
+      <ul data-component={CLASS_NAME} className={cx(CLASS_NAME, className)} {...rest}>
+        {items.map((rootNode, index) => (
+          <TreeNode key={index} node={rootNode} />
+        ))}
+      </ul>
     );
   }
 }

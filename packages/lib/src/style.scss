@@ -1,34 +1,44 @@
 .react-tree {
-  --react-tree-border-color: rgb(100, 100, 100);
-  & ul {
-    margin-left: 10px;
+  --react-tree-border-width: 1px;
+  --react-tree-border-color: gray;
+  --react-tree-gap: 14px;
+  --react-tree-line-width: 24px;
+  --react-tree-line-height: 24px;
+  --react-tree-padding: 24px;
+
+  padding-left: var(--react-tree-gap);
+  position: relative;
+
+  [data-role="label"] {
+    display: block;
   }
 
-  & li {
-    margin: 0;
-    padding: 0 7px;
-    line-height: 20px;
-    font-weight: bold;
-    border-left: 1px solid var(--react-tree-border-color);
-  }
+  ul {
+    margin-left: calc(var(--react-tree-gap) * -1);
+    padding-left: var(--react-tree-padding);
 
-  & li:last-child {
-    border-left: none;
-  }
+    li {
+      border-left: var(--react-tree-border-width) solid var(--react-tree-border-color);
+      line-height: 30px;
+      display: block;
+      position: relative;
+      padding-left: var(--react-tree-padding);
 
-  & li:before {
-    position: relative;
-    top: -0.3em;
-    height: 1em;
-    width: 12px;
-    color: white;
-    border-bottom: 1px solid var(--react-tree-border-color);
-    content: "";
-    display: inline-block;
-    left: -7px;
-  }
+      &::before {
+        content: "";
+        display: block;
+        position: absolute;
+        top: -12px;
+        left: -1px;
+        width: var(--react-tree-line-width);
+        height: var(--react-tree-line-height);
+        border: solid var(--react-tree-border-color);
+        border-width: 0 0 var(--react-tree-border-width) var(--react-tree-border-width);
+      }
 
-  & li:last-child:before {
-    border-left: 1px solid var(--react-tree-border-color);
+      &:last-child {
+        border-color: transparent;
+      }
+    }
   }
 }
