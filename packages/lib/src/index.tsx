@@ -21,18 +21,18 @@ const TreeNode = ({ node }) => {
   const hasChildren = node.children && node.children.length > 0;
 
   return (
-    <li key={node.value}>
+    <li key={node.value} data-role="node">
       {hasChildren ? (
         <details open>
           <summary data-role="label">{node.label}</summary>
-          <ul>
-            {node.children.map((node) => (
-              <TreeNode key={node.value} node={node} />
-            ))}
+          <ul data-role="group">
+            {node.children.map((node, index) => {
+              return <TreeNode key={index} node={node} />;
+            })}
           </ul>
         </details>
       ) : (
-        <span data-role="label">{node.label}</span>
+        <span key={node.value} data-role="label">{node.label}</span>
       )}
     </li>
   );
@@ -47,7 +47,7 @@ export default class ReactTree extends Component<ReactTreeProps> {
   render() {
     const { className, children, items, ...rest } = this.props;
     return (
-      <ul data-component={CLASS_NAME} className={cx(CLASS_NAME, className)} {...rest}>
+      <ul data-component={CLASS_NAME} data-role="root" className={cx(CLASS_NAME, className)} {...rest}>
         {items.map((rootNode, index) => (
           <TreeNode key={index} node={rootNode} />
         ))}

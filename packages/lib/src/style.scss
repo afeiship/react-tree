@@ -2,8 +2,8 @@
   --react-tree-border-width: 1px;
   --react-tree-border-color: gray;
   --react-tree-gap: 14px;
-  --react-tree-line-width: 24px;
-  --react-tree-line-height: 24px;
+  --react-tree-line-width: 20px;
+  --react-tree-line-height: 20px;
   --react-tree-padding: 24px;
 
   padding-left: var(--react-tree-gap);
@@ -28,7 +28,7 @@
         content: "";
         display: block;
         position: absolute;
-        top: -12px;
+        top: -4px;
         left: -1px;
         width: var(--react-tree-line-width);
         height: var(--react-tree-line-height);
