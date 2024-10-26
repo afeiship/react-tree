@@ -10,7 +10,14 @@ export type TreeNodeProps = {
 }
 
 export type ReactTreeProps = {
+  /**
+   * The array of tree nodes.
+   */
   items: TreeNodeProps[];
+  /**
+   * The template function to render each node.
+   * @param args
+   */
   template?: (args: { node: TreeNodeProps, index: number }) => ReactNode;
   /**
    * The children element.
@@ -49,9 +56,7 @@ export default class ReactTree extends Component<ReactTreeProps> {
     const { className, children, items, template, ...rest } = this.props;
     return (
       <ul data-component={CLASS_NAME} data-role="root" className={cx(CLASS_NAME, className)} {...rest}>
-        {items.map((rootNode, index) => {
-          return template?.({ node: rootNode, index });
-        })}
+        {items.map((node, index) => template?.({ node, index }))}
       </ul>
     );
   }
